@@ -1,64 +1,123 @@
 window.onload = function () {
   showPokemons();
+  calcTable();
 };
 
 let filterMenu = document.getElementById('filter-menu');
 let chooseType = document.getElementById('choose-type');
-// let chooseWeakness = document.getElementById('choose-weakness');
 let sort = document.getElementById('sort');
 
-function showFilter() {
-  let chooseFilter = filterMenu.value;
-  if (chooseFilter === 'none') {
-    chooseType.style.visibility = 'hidden';
-    // chooseWeakness.style.visibility = 'hidden';    
-  } else if (chooseFilter === 'type' || chooseFilter === 'weakness') {
-    chooseType.style.visibility = 'visible';
-    // chooseWeakness.style.visibility = 'hidden';
-  }
+filterMenu.addEventListener('change', showFilter);
+chooseType.addEventListener('change', changeTypeShow);
+sort.addEventListener('change', changeOrderingShow);
 
-  // else if(chooseFilter === 'weakness'){    
-  //   // chooseWeakness.style.visibility = 'visible';
-  //   chooseType.style.visibility = 'hidden';
-  // }
-  showPokemons()
+function changeTypeShow() {
+  filtrando();
+  calcTable();
+  showPokemons();
 }
 
-filterMenu.addEventListener('change', showFilter);
+function changeOrderingShow() {
+  showPokemons();
+  ordering();
+}
 
 function getPokemons() {
   return POKEMON["pokemon"];
 }
 
+function showFilter() {
+  let chooseFilter = filterMenu.value;
+  if (chooseFilter === 'none') {
+    chooseType.style.visibility = 'hidden';
+  } else if (chooseFilter === 'type' || chooseFilter === 'weakness') {
+    chooseType.style.visibility = 'visible';
+  }
+  showPokemons()
+}
+
 function filtrando() {
-  console.log('entrou filtrando');
   let chooseFilter = filterMenu.value;
   let typeFilter = chooseType.value;
   let array = POKEMON["pokemon"];
   if (chooseFilter === 'type' && typeFilter != 'none') {
-    console.log('entrou filtrando por tipo');
-    console.log(typeFilter);
     let filtered = getPokemons().filter(tipo => tipo['type'].indexOf(typeFilter) >= 0);
-    console.log(filtered);
     array = filtered;
   } else if (chooseFilter === 'weakness' && typeFilter != 'none') {
-    console.log('entrou filtrando por fraqueza');
-    console.log(typeFilter);
     let filtered = getPokemons().filter(tipo => tipo['weaknesses'].indexOf(typeFilter) >= 0);
-    console.log(filtered);
     array = filtered;
   } else if (chooseFilter != 'none' && typeFilter === 'none') {
-    console.log('entrou filtrando none');
     array = POKEMON["pokemon"];
   }
 
   return array
 }
 
-chooseType.addEventListener('change', filtrando);
+function calcTable() {
+  let calcTable = document.getElementById("calc-table");
+  let candy = (filtrando().map((pokemon) => pokemon['candy_count'])).filter(value => value);
+  let sortCandy = candy.sort(function (a, b) {
+    return a - b;
+  });
+  let spawnChance = (filtrando().map((pokemon) => pokemon['spawn_chance']));
+  let sortSpawnChance = spawnChance.sort(function (a,b){
+    return a - b;
+  })
+  let spawnTime = (filtrando().map((pokemon) => pokemon['spawn_time']));
+  let sortSpawnTime = spawnTime.sort(function (a,b){
+    return a - b;
+  })
+
+    calcTable.innerHTML = `
+  <tr>
+      <th></th>
+      <th>Candy</th>
+      <th>Spawn Chance</th>
+      <th>Spawn Time</th>
+    </tr>
+    <tr>
+      <th>Mín</th>
+      <th>${sortCandy[0]}</th>
+      <th>${sortSpawnChance[0]} %</th>
+      <th>${sortSpawnTime[0]}</th>
+    </tr>
+    <tr>
+      <th>Média</th>
+      <th id="med-candy"></th>
+      <th id="med-spawn-chance"></th>
+      <th id="med-spawn-time"></th>
+    </tr>
+    <tr>
+      <th>Máx</th>
+      <th>${sortCandy[sortCandy.length - 1]}</th>
+      <th>${sortSpawnChance[sortSpawnChance.length - 1]} %</th>
+      <th>${sortSpawnTime[sortSpawnTime.length - 1]}</th>
+    </tr>`
+}
+
+function ordering() {
+  let sortOption = sort.value;
+  let ordered = filtrando().sort(function (a, b) {
+
+    if (a[sortOption] < b[sortOption]) {
+      return -1;
+    }
+    if (a[sortOption] > b[sortOption]) {
+      return 1;
+    }
+    if (!a[sortOption]) {
+      return 1;
+    }
+    if (!b[sortOption]) {
+      return -1;
+    }
+    return 0;
+  })
+
+  return ordered
+}
 
 function showPokemons() {
-  console.log('entrou SHOWPOKEMONS');
   let pokemonDiv = document.getElementById("pokemons-div")
   pokemonDiv.innerHTML = `
     ${ordering().map((pokemon) => `
@@ -78,43 +137,5 @@ function showPokemons() {
       `
 }
 
-chooseType.addEventListener('change', showPokemons);
 
-function ordering() {
-  let sortOption = sort.value;
-  console.log('valor');
-  console.log(sortOption);
-  let ordered = filtrando().sort(function (a, b) {
-
-    if (a[sortOption] < b[sortOption]) {
-      // console.log(a[sortOption]);
-      // console.log(b[sortOption]);
-      console.log('entrou if');
-      return -1;
-    }
-    if (a[sortOption] > b[sortOption]) {
-      console.log('entrou if else');
-      return 1;
-    }
-    return 0;
-  })
-  console.log('ordenada');
-  console.log(ordered);
-
-  return ordered
-}
-
-sort.addEventListener('change', changeOrderingShow);
-
-function changeOrderingShow() {
-  showPokemons();
-  ordering();
-}
-
-
-// filtered.sort(function(a, b){
-//   if(a.name < b.name) { return -1; }
-//   if(a.name > b.name) { return 1; }
-//   return 0;
-// })
 
