@@ -7,7 +7,7 @@ let filterMenu = document.getElementById('filter-menu');
 let chooseType = document.getElementById('choose-type');
 let sort = document.getElementById('sort');
 
-filterMenu.addEventListener('change', showFilter);
+filterMenu.addEventListener('change', changeFilterShow);
 chooseType.addEventListener('change', changeTypeShow);
 sort.addEventListener('change', changeOrderingShow);
 
@@ -18,8 +18,13 @@ function changeTypeShow() {
 }
 
 function changeOrderingShow() {
-  showPokemons();
   ordering();
+  showPokemons();
+}
+
+function changeFilterShow() { 
+  showFilter();
+  calcTable();
 }
 
 function getPokemons() {
@@ -59,14 +64,41 @@ function calcTable() {
   let sortCandy = candy.sort(function (a, b) {
     return a - b;
   });
-  let spawnChance = (filtrando().map((pokemon) => pokemon['spawn_chance']));
+  let sumCandy = candy.reduce((acc, cur) => acc + cur);
+  let medCandy = parseInt(sumCandy / candy.length);
+  
+  let spawnChance = (filtrando().map((pokemon) => pokemon['spawn_chance'])).filter(value => value > 0);
   let sortSpawnChance = spawnChance.sort(function (a,b){
     return a - b;
   })
-  let spawnTime = (filtrando().map((pokemon) => pokemon['spawn_time']));
+  let spawnSum = spawnChance.reduce((acc, cur) => acc + cur);
+  let spawnChanceMed = parseFloat(spawnSum / spawnChance.length).toFixed(3) ;
+  
+  let spawnTime = (filtrando().map((pokemon) => pokemon['spawn_time'])).filter(value => value !== "N/A");
   let sortSpawnTime = spawnTime.sort(function (a,b){
     return a - b;
   })
+
+   for (times of spawnTime){
+    let a = times.split(':');
+    var seconds = (+a[0]) * 60 + (+a[1]);
+    var totalSeconds = 0;
+    totalSeconds += seconds;
+    console.log("total de segundos" + totalSeconds);
+  }
+  let spawnTimeMed = parseInt(totalSeconds / spawnTime.length) ;
+  let spawnTimeMedMin = Math.floor(spawnTimeMed / 60);
+  let spawnTimeMedSec = spawnTimeMed - spawnTimeMedMin * 60; 
+  console.log('spawn time media' + spawnTimeMed);
+  console.log("total de segundos fora do for " + totalSeconds);
+  
+  // let spawnTimeSum = spawnTime.reduce((acc, cur) => acc + cur);
+  // let spawnTimeMed = spawnTimeSum / spawnTime.length ;
+  // console.log("aqui eh o array do spawn " + typeof(spawnTime[0]));
+  // console.log("aqui eh a SOMA do spawn " + spawnTimeSum);
+  // console.log("aqui eh a MEDIA do spawn " + spawnTimeMed);
+
+
 
     calcTable.innerHTML = `
   <tr>
@@ -83,9 +115,9 @@ function calcTable() {
     </tr>
     <tr>
       <th>Média</th>
-      <th id="med-candy"></th>
-      <th id="med-spawn-chance"></th>
-      <th id="med-spawn-time"></th>
+      <th id="med-candy">${medCandy}</th>
+      <th id="med-spawn-chance">${spawnChanceMed} %</th>
+      <th id="med-spawn-time">${spawnTimeMedMin}:${spawnTimeMedSec}</th>
     </tr>
     <tr>
       <th>Máx</th>
