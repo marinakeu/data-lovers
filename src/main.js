@@ -150,19 +150,19 @@ function ordering() {
 }
 
 function showPokemons() {
-  let pokemonDiv = document.getElementById("pokemons-div")
+  let pokemonDiv = document.getElementById("pokemons-container")
   pokemonDiv.innerHTML = `
     ${ordering().map((pokemon) => `
-    <div>
-        <img src="${pokemon["img"]}"
-        <h3>${pokemon["name"]}</h3>
-        <p>${pokemon["num"]}</p>
-      <div>${pokemon["type"].map((type) => `
+    <div class="pokemons-card">
+        <p class="card-img"><img src="${pokemon["img"]}"</p>
+        <h2 class="card-name">${pokemon["name"]}</h3>
+        <p class="card-num">${pokemon["num"]}</p>
+      <div class="card-type">${pokemon["type"].map((type) => `
         <p>${type}</p>`).join('')}
       </div>
-      ${pokemon["candy_count"] ? `<p>Evolve: ${pokemon["candy_count"]} candy</p>` : ''}
-      <p>Spawn-Chance: ${pokemon["spawn_chance"]}%</p>
-      <p>Spawn-Time: ${pokemon["spawn_time"]}</p>
+      ${pokemon["candy_count"] ? `<p class="card-candy">Evolve: ${pokemon["candy_count"]} candy</p>` : ''}
+      <p class="card-spawn-chance">Spawn-Chance: ${pokemon["spawn_chance"]}%</p>
+      <p class="card-spawn-time">Spawn-Time: ${pokemon["spawn_time"]}</p>
       </div >
       
       `).join('')}

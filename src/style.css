@@ -9,3 +9,58 @@
 #choose-weakness{
     visibility: hidden;
 }
+
+
+
+/* Css-cards */
+
+.pokemons-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3%;
+    background-color: #F7F7F7;
+}
+
+.pokemons-card{
+    background-color: #D4D4D4;
+    margin: 0.3rem;
+    width: 14%;
+    padding: 1rem;
+    border-radius: 3%;
+    font-weight: bold;
+}
+
+.card-img{
+    text-align: center;
+    padding: 0rem;
+    margin: 0.5rem 0rem 1rem;
+}
+
+.card-name,
+.card-num{
+    color: #171C3C;
+    margin: 0.1rem 0rem;
+}
+
+.card-type{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0.8rem 0rem;    
+}
+
+.card-type p{
+    margin: 0.2rem;
+    background-color: #5C9BC3;
+    border-radius: 3%;
+    padding: 0.2rem;
+}
+
+.card-candy,
+.card-spawn-chance,
+.card-spawn-time{
+    color: #2E3036;
+    margin: 0.05rem;
+}
