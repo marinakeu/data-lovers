@@ -2,6 +2,43 @@
     font-family: 'Alegreya', serif;
 }
 
+body {
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+header {
+    background-color: #171c3c;
+    display: flex;
+}
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pokemon-logo{
+    max-width: 50%;
+    width: 48%;
+    height: auto;
+    margin-left: 7%;
+    margin-top: 3%;
+    margin-right: 7%;
+}
+
+h1{
+    color: #F7F7F7;
+}
+
+.explore{
+    width: 21%;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+}
+
 #choose-type{
     visibility: hidden;
 }
@@ -9,8 +46,6 @@
 #choose-weakness{
     visibility: hidden;
 }
-
-
 
 /* Css-cards */
 
