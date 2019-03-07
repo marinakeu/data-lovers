@@ -1,6 +1,7 @@
 window.onload = function () {
   showPokemons();
   calcTable();
+  totalTable();
 };
 
 let filterMenu = document.getElementById('filter-menu');
@@ -14,6 +15,7 @@ sort.addEventListener('change', changeOrderingShow);
 function changeTypeShow() {
   filtrando();
   calcTable();
+  totalTable();
   showPokemons();
 }
 
@@ -25,6 +27,7 @@ function changeOrderingShow() {
 function changeFilterShow() { 
   showFilter();
   calcTable();
+  totalTable();
 }
 
 function getPokemons() {
@@ -56,6 +59,12 @@ function filtrando() {
   }
 
   return array
+}
+
+function totalTable() {
+  let totalTable = document.getElementById('total-number');
+  let total = filtrando().length;
+  totalTable.innerHTML =`${total}`
 }
 
 function calcTable() {
@@ -160,10 +169,18 @@ function showPokemons() {
       <div class="card-type">${pokemon["type"].map((type) => `
         <p>${type}</p>`).join('')}
       </div>
-      ${pokemon["candy_count"] ? `<p class="card-candy">Evolve: ${pokemon["candy_count"]} candy</p>` : ''}
-      <p class="card-spawn-chance">Spawn-Chance: ${pokemon["spawn_chance"]}%</p>
-      <p class="card-spawn-time">Spawn-Time: ${pokemon["spawn_time"]}</p>
-      </div >
+      ${pokemon["candy_count"] ? `<p class="card-candy">Candy to evolve: <span class="candy-value">${pokemon["candy_count"]}</span></p>` : ''}
+      <div class="card-spawn">
+        <div class="card-spawn-chance">
+          <p class="spawn-chance-title">Spawn Chance</p>
+          <p class="spawn-chance-value">${pokemon["spawn_chance"]}%</p>
+        </div>
+        <div class="card-spawn-time">
+          <p class="spawn-time-title">Spawn Time</p>
+          <p class="spawn-time-value">${pokemon["spawn_time"]}</p>
+        </div>
+      </div>
+    </div >
       
       `).join('')}
       `
