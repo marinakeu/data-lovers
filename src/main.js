@@ -1,6 +1,7 @@
 window.onload = function () {
   showPokemons();
   calcTable();
+  totalTable();
 };
 
 let filterMenu = document.getElementById('filter-menu');
@@ -14,6 +15,7 @@ sort.addEventListener('change', changeOrderingShow);
 function changeTypeShow() {
   filtrando();
   calcTable();
+  totalTable();
   showPokemons();
 }
 
@@ -25,6 +27,7 @@ function changeOrderingShow() {
 function changeFilterShow() { 
   showFilter();
   calcTable();
+  totalTable();
 }
 
 function getPokemons() {
@@ -56,6 +59,12 @@ function filtrando() {
   }
 
   return array
+}
+
+function totalTable() {
+  let totalTable = document.getElementById('total-number');
+  let total = filtrando().length;
+  totalTable.innerHTML =`${total}`
 }
 
 function calcTable() {
