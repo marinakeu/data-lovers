@@ -2,14 +2,16 @@
     font-family: 'Alegreya', serif;
 }
 
-body {
+body{
     margin: 0;
     background-color: #f7f7f7;
+    
 }
 
-header {
+header{
     background-color: #171c3c;
     display: flex;
+    justify-content: center;
 }
 
 .logo-container{
@@ -39,8 +41,43 @@ h1{
 
 }
 
+/* Buttons */
+nav{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.btn{
+    padding: 8px 18px;
+    border-radius: 10px;
+    font: normal normal bold 20px arial;    
+    margin-right: 1%;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-bottom: 1%;    
+    border: none;
+}
+
+.blue{
+    background: #5C9BC3;
+}
+
+.blue:hover{
+    background: linear-gradient(to bottom, #5C9BC3, #406D89);
+}
+
+.yellow{
+    background: #FFCB05
+}
+
+.yellow:hover{
+    background: linear-gradient(to bottom, #FFCB05, #B28F03);
+}
+
 #choose-type{
     visibility: hidden;
+   
 }
 
 #choose-weakness{
