@@ -20,11 +20,11 @@ function changeTypeShow() {
 }
 
 function changeOrderingShow() {
-  ordering();
+  // ordering();
   showPokemons();
 }
 
-function changeFilterShow() { 
+function changeFilterShow() {
   showFilter();
   calcTable();
   totalTable();
@@ -64,52 +64,110 @@ function filtrando() {
 function totalTable() {
   let totalTable = document.getElementById('total-number');
   let total = filtrando().length;
-  totalTable.innerHTML =`${total}`
+  totalTable.innerHTML = `${total}`
 }
 
 function calcTable() {
   let calcTable = document.getElementById("calc-table");
+
+  let printMinCandy = 0;
+  let printMedCandy = 0;
+  let printMaxCandy = 0;
   let candy = (filtrando().map((pokemon) => pokemon['candy_count'])).filter(value => value);
-  let sortCandy = candy.sort(function (a, b) {
-    return a - b;
-  });
-  let sumCandy = candy.reduce((acc, cur) => acc + cur);
-  let medCandy = parseInt(sumCandy / candy.length);
-  
-  let spawnChance = (filtrando().map((pokemon) => pokemon['spawn_chance'])).filter(value => value > 0);
-  let sortSpawnChance = spawnChance.sort(function (a,b){
-    return a - b;
-  })
-  let spawnSum = spawnChance.reduce((acc, cur) => acc + cur);
-  let spawnChanceMed = parseFloat(spawnSum / spawnChance.length).toFixed(3) ;
-  
-  let spawnTime = (filtrando().map((pokemon) => pokemon['spawn_time'])).filter(value => value !== "N/A");
-  let sortSpawnTime = spawnTime.sort(function (a,b){
-    return a - b;
-  })
-
-   for (times of spawnTime){
-    let a = times.split(':');
-    var seconds = (+a[0]) * 60 + (+a[1]);
-    var totalSeconds = 0;
-    totalSeconds += seconds;
-    console.log("total de segundos" + totalSeconds);
+  if (candy.length > 0) {
+    let sortCandy = candy.sort(function (a, b) {
+      return a - b;
+    });
+    printMinCandy = sortCandy[0]
+    let sumCandy = 0;
+    sumCandy = candy.reduce((acc, cur) => acc + cur);
+    printMedCandy = parseInt(sumCandy / candy.length);
+    printMaxCandy = sortCandy[sortCandy.length - 1];
   }
-  let spawnTimeMed = parseInt(totalSeconds / spawnTime.length) ;
-  let spawnTimeMedMin = Math.floor(spawnTimeMed / 60);
-  let spawnTimeMedSec = spawnTimeMed - spawnTimeMedMin * 60; 
-  console.log('spawn time media' + spawnTimeMed);
-  console.log("total de segundos fora do for " + totalSeconds);
-  
-  // let spawnTimeSum = spawnTime.reduce((acc, cur) => acc + cur);
-  // let spawnTimeMed = spawnTimeSum / spawnTime.length ;
-  // console.log("aqui eh o array do spawn " + typeof(spawnTime[0]));
-  // console.log("aqui eh a SOMA do spawn " + spawnTimeSum);
-  // console.log("aqui eh a MEDIA do spawn " + spawnTimeMed);
+
+  let printMinSpawnChance = 0;
+  let printMedSpawnChance = 0;
+  let printMaxSpawnChance = 0;
+  let spawnChance = (filtrando().map((pokemon) => pokemon['spawn_chance'])).filter(value => value > 0);
+  if (spawnChance.length > 0) {
+    let sortSpawnChance = spawnChance.sort(function (a, b) {
+      return a - b;
+    })
+    let spawnSum = 0;
+    if (spawnChance.length > 0) { spawnSum = spawnChance.reduce((acc, cur) => acc + cur) };
+    printMinSpawnChance = sortSpawnChance[0];
+    printMedSpawnChance = parseFloat(spawnSum / spawnChance.length).toFixed(3);
+    printMaxSpawnChance = sortSpawnChance[sortSpawnChance.length - 1];
+  }
 
 
+  let printMinSpawnTimeMin = '00';
+  let printMinSpawnTimeSec = '00';
+  let printMedSpawnTimeMin = '00';
+  let printMedSpawnTimeSec = '00';
+  let printMaxSpawnTimeMin = '00';
+  let printMaxSpawnTimeSec = '00';
+  let spawnTime = (filtrando().map((pokemon) => pokemon['spawn_time'])).filter(value => value !== "N/A");
+  if (spawnTime.length > 0) {
+    let secondsArray = [];
+    for (times of spawnTime) {
+      let a = times.split(':');
+      let seconds = (+a[0]) * 60 + (+a[1]);
+      secondsArray.push(seconds);
+    }
 
-    calcTable.innerHTML = `
+    let sortSpawnTime = secondsArray.sort(function (a, b) {
+      return a - b;
+    })
+
+    let minSpawnTime = parseInt(sortSpawnTime[0]);
+    minSpawnTimeMin = Math.floor(minSpawnTime / 60);
+    if (minSpawnTimeMin < 10) {
+      printMinSpawnTimeMin = '0' + minSpawnTimeMin;
+    } else {
+      printMinSpawnTimeMin = minSpawnTimeMin;
+    }
+
+    minSpawnTimeSec = minSpawnTime - minSpawnTimeMin * 60;
+    if (minSpawnTimeSec < 10) {
+      printMinSpawnTimeSec = '0' + minSpawnTimeSec;
+    } else {
+      printMinSpawnTimeSec = minSpawnTimeSec;;
+    }
+
+    let sumSpawnTime = secondsArray.reduce((acc, cur) => acc + cur);
+    let spawnTimeMed = parseInt(sumSpawnTime / spawnTime.length);
+    let medSpawnTimeMin = Math.floor(spawnTimeMed / 60);
+    if (medSpawnTimeMin < 10) {
+      printMedSpawnTimeMin = '0' + medSpawnTimeMin;
+    } else {
+      printMedSpawnTimeMin = medSpawnTimeMin;
+    }
+
+    let medSpawnTimeSec = spawnTimeMed - medSpawnTimeMin * 60;
+    if (medSpawnTimeSec < 10) {
+      printMedSpawnTimeSec = '0' + medSpawnTimeSec;
+    } else {
+      printMedSpawnTimeSec = medSpawnTimeSec;
+    }
+
+    let maxSpawnTime = sortSpawnTime[sortSpawnTime.length - 1];
+    let maxSpawnTimeMin = Math.floor(maxSpawnTime / 60);
+    if (maxSpawnTimeMin < 10) {
+      printMaxSpawnTimeMin = '0' + maxSpawnTimeMin;
+    } else {
+      printMaxSpawnTimeMin = maxSpawnTimeMin;
+    }
+
+    maxSpawnTimeSec = maxSpawnTime - maxSpawnTimeMin * 60;
+    if (maxSpawnTimeSec < 10) {
+      printMaxSpawnTimeSec = '0' + maxSpawnTimeSec;
+    } else {
+      printMaxSpawnTimeSec = maxSpawnTimeSec;
+    }
+  }
+
+  calcTable.innerHTML = `
   <tr>
       <th></th>
       <th>Candy</th>
@@ -118,21 +176,21 @@ function calcTable() {
     </tr>
     <tr>
       <th>Mín</th>
-      <th>${sortCandy[0]}</th>
-      <th>${sortSpawnChance[0]} %</th>
-      <th>${sortSpawnTime[0]}</th>
+      <th>${printMinCandy}</th>
+      <th>${printMinSpawnChance} %</th>
+      <th>${printMinSpawnTimeMin}:${printMinSpawnTimeSec}</th>
     </tr>
     <tr>
       <th>Média</th>
-      <th id="med-candy">${medCandy}</th>
-      <th id="med-spawn-chance">${spawnChanceMed} %</th>
-      <th id="med-spawn-time">${spawnTimeMedMin}:${spawnTimeMedSec}</th>
+      <th id="med-candy">${printMedCandy}</th>
+      <th id="med-spawn-chance">${printMedSpawnChance} %</th>
+      <th id="med-spawn-time">${printMedSpawnTimeMin}:${printMedSpawnTimeSec}</th>
     </tr>
     <tr>
       <th>Máx</th>
-      <th>${sortCandy[sortCandy.length - 1]}</th>
-      <th>${sortSpawnChance[sortSpawnChance.length - 1]} %</th>
-      <th>${sortSpawnTime[sortSpawnTime.length - 1]}</th>
+      <th>${printMaxCandy}</th>
+      <th>${printMaxSpawnChance} %</th>
+      <th>${printMaxSpawnTimeMin}:${printMaxSpawnTimeSec}</th>
     </tr>`
 }
 
