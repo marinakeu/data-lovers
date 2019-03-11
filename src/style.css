@@ -37,9 +37,9 @@ h1{
 }
 
 .explore{
-    width: 21%;
+    height: auto;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 11%;
     margin-bottom: 5%;
 
 }
@@ -78,7 +78,7 @@ nav{
     background: linear-gradient(to bottom, #FFCB05, #B28F03);
 }
 
-#choose-menu{
+#choose-type{
     visibility: hidden;
    
 }
@@ -87,7 +87,12 @@ nav{
     visibility: hidden;
 }
 
-bla bla 
+#chart-div{
+    display: flex !important;
+    justify-content: center;
+    width: auto !important; 
+    height: auto !important;
+}
 
 /* CSS-table e cards */
 
