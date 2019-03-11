@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Data Lovers</title>
+  <title>Pokémon Go Guide</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
       <option value="type">Tipo</option>
       <option value="weakness">Fraquezas</option>
     </select>
-    <select id="choose-type" class="blue btn">
+    <select id="choose-menu" class="blue btn">
       <option value="none" selected>Escolha</option>
       <option value="Water">Água</option>
       <option value="Dragon">Dragão</option>
@@ -44,7 +45,7 @@
       <option value="Poison">Veneno</option>
       <option value="Flying">Voador</option>
     </select>
-    <select id="sort" class="yellow btn">
+    <select id="sort-menu" class="yellow btn">
       <option value="none">Ordenar</option>
       <option value="name">A > Z</option>
       <option value="candy_count">Candy</option>
@@ -55,38 +56,22 @@
 
   <section class="table">
     <div class="table-title">
-    <h3>DADOS GERAIS</h3>
-    <h4><span id="total-number"></span> pokémons</h4>
-    <!-- <p>TIPO: <span id="type-filter"></span></p> -->
+      <h3>DADOS GERAIS</h3>
+      <h4><span id="total-number"></span> pokémons</h4>
     </div>
 
     <table id="calc-table" class="calc-table">
     </table>
   </section>
+  <div id="chart_div" style="width: 100%; height: 500px;"></div>
   <main>
     <section id="pokemons-container" class="pokemons-container">
-      <!-- <div id="pokemons-div">
-
-      </div> -->
-      <!-- <div>
-        <img src="" alt="">
-        <h3>Bulbasaur</h3>
-        <p>001</p>
-        <div>
-          <p>Grama</p>
-          <p>Poison</p>
-        </div>
-        <p>Candy: 25</p>
-        <p>Spawn-Chance 69%</p>
-        <p>Spawn-Time 20:00</p>
-      </div> -->
     </section>
   </main>
   <footer>
-    Versão 0.0.2
+    Versão 0.0.4
   </footer>
   <script src="./data/pokemon/pokemon.js"></script>
-  <!-- <script src="data.js"></script> -->
   <script src="main.js"></script>
 </body>
 
