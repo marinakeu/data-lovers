@@ -1,17 +1,20 @@
 *{
     font-family: 'Alegreya', serif;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline:none;
 }
 
 body{
-    margin: 0;
     background-color: #f7f7f7;
-    
 }
 
 header{
     background-color: #171c3c;
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 .logo-container{
@@ -83,6 +86,8 @@ nav{
 #choose-weakness{
     visibility: hidden;
 }
+
+bla bla 
 
 /* CSS-table e cards */
 
