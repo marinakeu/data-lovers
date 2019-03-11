@@ -265,7 +265,7 @@ function drawChart() {
     vAxis: { minValue: 0 }
   };
 
-  var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+  var chart = new google.visualization.AreaChart(document.getElementById('chart-div'));
   chart.draw(data, options);
 }
 
