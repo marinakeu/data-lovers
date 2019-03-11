@@ -1,172 +1,223 @@
+// fetch('./data/pokemon/pokemon.json').then(response => {
+//   return response.json();
+// }).then(data => {
+
 window.onload = function () {
   showPokemons();
-  calcTable();
-  totalTable();
+  printTable();
+  drawChart();
+  pokemonsAmountTable();
 };
 
 let filterMenu = document.getElementById('filter-menu');
-let chooseType = document.getElementById('choose-type');
-let sort = document.getElementById('sort');
+let chooseMenu = document.getElementById('choose-menu');
+let sortMenu = document.getElementById('sort-menu');
 
-filterMenu.addEventListener('change', changeFilterShow);
-chooseType.addEventListener('change', changeTypeShow);
-sort.addEventListener('change', changeOrderingShow);
+filterMenu.addEventListener('change', showChooseMenu);
+chooseMenu.addEventListener('change', changeChooseMenu);
+sortMenu.addEventListener('change', showPokemons);
 
-function changeTypeShow() {
-  filtrando();
-  calcTable();
-  totalTable();
+function changeChooseMenu() {
+  printTable();
+  drawChart();
+  pokemonsAmountTable();
   showPokemons();
-}
-
-function changeOrderingShow() {
-  // ordering();
-  showPokemons();
-}
-
-function changeFilterShow() {
-  showFilter();
-  calcTable();
-  totalTable();
 }
 
 function getPokemons() {
+  // return data["pokemon"];
   return POKEMON["pokemon"];
 }
 
-function showFilter() {
-  let chooseFilter = filterMenu.value;
-  if (chooseFilter === 'none') {
-    chooseType.style.visibility = 'hidden';
-  } else if (chooseFilter === 'type' || chooseFilter === 'weakness') {
-    chooseType.style.visibility = 'visible';
+function showChooseMenu() {
+  let filterMenuValue = filterMenu.value;
+  if (filterMenuValue === 'none') {
+    chooseMenu.style.visibility = 'hidden';
+  } else if (filterMenuValue === 'type' || filterMenuValue === 'weakness') {
+    chooseMenu.style.visibility = 'visible';
   }
-  showPokemons()
+  showPokemons();
+  printTable();
+  pokemonsAmountTable();
 }
 
-function filtrando() {
-  let chooseFilter = filterMenu.value;
-  let typeFilter = chooseType.value;
-  let array = POKEMON["pokemon"];
-  if (chooseFilter === 'type' && typeFilter != 'none') {
-    let filtered = getPokemons().filter(tipo => tipo['type'].indexOf(typeFilter) >= 0);
-    array = filtered;
-  } else if (chooseFilter === 'weakness' && typeFilter != 'none') {
-    let filtered = getPokemons().filter(tipo => tipo['weaknesses'].indexOf(typeFilter) >= 0);
-    array = filtered;
-  } else if (chooseFilter != 'none' && typeFilter === 'none') {
-    array = POKEMON["pokemon"];
+function filter() {
+  let filterMenuValue = filterMenu.value;
+  let chooseMenuValue = chooseMenu.value;
+  // let filteredPokemons = data["pokemon"];
+  let filteredPokemons = POKEMON["pokemon"];
+
+  if (filterMenuValue === 'type' && chooseMenuValue != 'none') {
+    filteredPokemons = getPokemons().filter(tipo => tipo['type'].indexOf(chooseMenuValue) >= 0);
+  } else if (filterMenuValue === 'weakness' && chooseMenuValue != 'none') {
+    filteredPokemons = getPokemons().filter(tipo => tipo['weaknesses'].indexOf(chooseMenuValue) >= 0);
+  } else if (filterMenuValue != 'none' && chooseMenuValue === 'none') {
+    filteredPokemons = POKEMON["pokemon"];
   }
 
-  return array
+  return filteredPokemons
 }
 
-function totalTable() {
-  let totalTable = document.getElementById('total-number');
-  let total = filtrando().length;
-  totalTable.innerHTML = `${total}`
+function pokemonsAmountTable() {
+  let pokemonsAmountTable = document.getElementById('total-number');
+  let total = filter().length;
+  pokemonsAmountTable.innerHTML = `${total}`
 }
 
-function calcTable() {
-  let calcTable = document.getElementById("calc-table");
+function sortCandy() {
+  let candy = (filter().map((pokemon) => pokemon['candy_count'])).filter(value => value);
+  let sortCandy = candy.sort(function (a, b) {
+    return a - b;
+  });
+  return sortCandy
+}
 
-  let printMinCandy = 0;
-  let printMedCandy = 0;
-  let printMaxCandy = 0;
-  let candy = (filtrando().map((pokemon) => pokemon['candy_count'])).filter(value => value);
-  if (candy.length > 0) {
-    let sortCandy = candy.sort(function (a, b) {
-      return a - b;
-    });
-    printMinCandy = sortCandy[0]
-    let sumCandy = 0;
-    sumCandy = candy.reduce((acc, cur) => acc + cur);
-    printMedCandy = parseInt(sumCandy / candy.length);
-    printMaxCandy = sortCandy[sortCandy.length - 1];
+function minimumCandy() {
+  let minCandy = 0;
+  if (sortCandy().length > 0) {
+    minCandy = sortCandy()[0];
   }
+  return minCandy
+}
 
-  let printMinSpawnChance = 0;
-  let printMedSpawnChance = 0;
-  let printMaxSpawnChance = 0;
-  let spawnChance = (filtrando().map((pokemon) => pokemon['spawn_chance'])).filter(value => value > 0);
-  if (spawnChance.length > 0) {
-    let sortSpawnChance = spawnChance.sort(function (a, b) {
-      return a - b;
-    })
-    let spawnSum = 0;
-    if (spawnChance.length > 0) { spawnSum = spawnChance.reduce((acc, cur) => acc + cur) };
-    printMinSpawnChance = sortSpawnChance[0];
-    printMedSpawnChance = parseFloat(spawnSum / spawnChance.length).toFixed(3);
-    printMaxSpawnChance = sortSpawnChance[sortSpawnChance.length - 1];
+function averageCandy() {
+  let avgCandy = 0;
+  let sumCandy = 0;
+  if (sortCandy().length > 0) {
+    sumCandy = sortCandy().reduce((acc, cur) => acc + cur);
+    avgCandy = parseInt(sumCandy / sortCandy().length);
   }
+  return avgCandy
+}
 
+function maximumCandy() {
+  let maxCandy = 0;
+  if (sortCandy().length > 0) {
+    maxCandy = sortCandy()[sortCandy().length - 1];
+  }
+  return maxCandy
+}
 
-  let printMinSpawnTimeMin = '00';
-  let printMinSpawnTimeSec = '00';
-  let printMedSpawnTimeMin = '00';
-  let printMedSpawnTimeSec = '00';
-  let printMaxSpawnTimeMin = '00';
-  let printMaxSpawnTimeSec = '00';
-  let spawnTime = (filtrando().map((pokemon) => pokemon['spawn_time'])).filter(value => value !== "N/A");
-  if (spawnTime.length > 0) {
-    let secondsArray = [];
-    for (times of spawnTime) {
-      let a = times.split(':');
-      let seconds = (+a[0]) * 60 + (+a[1]);
-      secondsArray.push(seconds);
-    }
+function sortSpawnChance() {
+  let spawnChance = (filter().map((pokemon) => pokemon['spawn_chance'])).filter(value => value > 0);
+  let sortSpawnChance = spawnChance.sort(function (a, b) {
+    return a - b;
+  })
+  return sortSpawnChance
+}
 
-    let sortSpawnTime = secondsArray.sort(function (a, b) {
-      return a - b;
-    })
+function minimumSpawnChance() {
+  let minSpawnChance = 0;
+  if (sortSpawnChance().length > 0) {
+    minSpawnChance = sortSpawnChance()[0];
+  }
+  return minSpawnChance
+}
 
-    let minSpawnTime = parseInt(sortSpawnTime[0]);
-    minSpawnTimeMin = Math.floor(minSpawnTime / 60);
+function averageSpawnChance() {
+  let avgSpawnChance = 0;
+  let spawnSum = 0;
+  if (sortSpawnChance().length > 0) {
+    spawnSum = sortSpawnChance().reduce((acc, cur) => acc + cur);
+    avgSpawnChance = parseFloat(spawnSum / sortSpawnChance().length).toFixed(3);
+  }
+  return avgSpawnChance
+}
+
+function maximumSpawnChance() {
+  let maxSpawnChance = 0;
+  if (sortSpawnChance().length > 0) {
+    maxSpawnChance = sortSpawnChance()[sortSpawnChance().length - 1];
+  }
+  return maxSpawnChance
+}
+
+function sortSpawnTime() {
+  let spawnTime = (filter().map((pokemon) => pokemon['spawn_time'])).filter(value => value !== "N/A");
+  // if (spawnTime.length > 
+  let secondsArray = [];
+  for (times of spawnTime) {
+    let a = times.split(':');
+    let seconds = (+a[0]) * 60 + (+a[1]);
+    secondsArray.push(seconds);
+  }
+  let sortSpawnTime = secondsArray.sort(function (a, b) {
+    return a - b;
+  })
+  return sortSpawnTime
+}
+
+function minimumSpawnTime() {
+  let minSpawnTimeMinutes = '00';
+  let minSpawnTimeSeconds = '00';
+  if (sortSpawnTime().length > 0) {
+    let spawnTime = parseInt(sortSpawnTime()[0]);
+    let minSpawnTimeMin = Math.floor(spawnTime / 60);
     if (minSpawnTimeMin < 10) {
-      printMinSpawnTimeMin = '0' + minSpawnTimeMin;
+      minSpawnTimeMinutes = '0' + minSpawnTimeMin;
     } else {
-      printMinSpawnTimeMin = minSpawnTimeMin;
+      minSpawnTimeMinutes = minSpawnTimeMin;
     }
-
-    minSpawnTimeSec = minSpawnTime - minSpawnTimeMin * 60;
+    let minSpawnTimeSec = spawnTime - minSpawnTimeMin * 60;
     if (minSpawnTimeSec < 10) {
-      printMinSpawnTimeSec = '0' + minSpawnTimeSec;
+      minSpawnTimeSeconds = '0' + minSpawnTimeSec;
     } else {
-      printMinSpawnTimeSec = minSpawnTimeSec;;
+      minSpawnTimeSeconds = minSpawnTimeSec;
     }
+  }
+  let minSpawnTime = minSpawnTimeMinutes + ":" + minSpawnTimeSeconds;
+  return minSpawnTime
+}
 
-    let sumSpawnTime = secondsArray.reduce((acc, cur) => acc + cur);
-    let spawnTimeMed = parseInt(sumSpawnTime / spawnTime.length);
-    let medSpawnTimeMin = Math.floor(spawnTimeMed / 60);
-    if (medSpawnTimeMin < 10) {
-      printMedSpawnTimeMin = '0' + medSpawnTimeMin;
+function averageSpawnTime() {
+  let avgSpawnTimeMinutes = '00';
+  let avgSpawnTimeSeconds = '00';
+  if (sortSpawnTime().length > 0) {
+    let sumSpawnTime = sortSpawnTime().reduce((acc, cur) => acc + cur);
+    let spawnTime = parseInt(sumSpawnTime / sortSpawnTime().length);
+    let avgSpawnTimeMin = Math.floor(spawnTime / 60);
+    if (avgSpawnTimeMin < 10) {
+      avgSpawnTimeMinutes = '0' + avgSpawnTimeMin;
     } else {
-      printMedSpawnTimeMin = medSpawnTimeMin;
+      avgSpawnTimeMinutes = avgSpawnTimeMin;
     }
-
-    let medSpawnTimeSec = spawnTimeMed - medSpawnTimeMin * 60;
-    if (medSpawnTimeSec < 10) {
-      printMedSpawnTimeSec = '0' + medSpawnTimeSec;
+    let avgSpawnTimeSec = spawnTime - avgSpawnTimeMin * 60;
+    if (avgSpawnTimeSec < 10) {
+      avgSpawnTimeSeconds = '0' + avgSpawnTimeSec;
     } else {
-      printMedSpawnTimeSec = medSpawnTimeSec;
+      avgSpawnTimeSeconds = avgSpawnTimeSec;
     }
+  }
+  let avgSpawnTime = avgSpawnTimeMinutes + ":" + avgSpawnTimeSeconds;
+  return avgSpawnTime
+}
 
-    let maxSpawnTime = sortSpawnTime[sortSpawnTime.length - 1];
+function maximumSpawnTime() {
+  let maxSpawnTimeMinutes = '00';
+  let maxSpawnTimeSeconds = '00';
+  if (sortSpawnTime().length > 0) {
+    let maxSpawnTime = sortSpawnTime()[sortSpawnTime().length - 1];
     let maxSpawnTimeMin = Math.floor(maxSpawnTime / 60);
     if (maxSpawnTimeMin < 10) {
-      printMaxSpawnTimeMin = '0' + maxSpawnTimeMin;
+      maxSpawnTimeMinutes = '0' + maxSpawnTimeMin;
     } else {
-      printMaxSpawnTimeMin = maxSpawnTimeMin;
+      maxSpawnTimeMinutes = maxSpawnTimeMin;
     }
 
     maxSpawnTimeSec = maxSpawnTime - maxSpawnTimeMin * 60;
     if (maxSpawnTimeSec < 10) {
-      printMaxSpawnTimeSec = '0' + maxSpawnTimeSec;
+      maxSpawnTimeSeconds = '0' + maxSpawnTimeSec;
     } else {
-      printMaxSpawnTimeSec = maxSpawnTimeSec;
+      maxSpawnTimeSeconds = maxSpawnTimeSec;
     }
   }
+  let maxSpawnTime = maxSpawnTimeMinutes + ":" + maxSpawnTimeSeconds;
+  return maxSpawnTime
+}
 
+
+function printTable() {
+  let calcTable = document.getElementById("calc-table");
   calcTable.innerHTML = `
   <tr>
       <th></th>
@@ -176,50 +227,76 @@ function calcTable() {
     </tr>
     <tr>
       <th>Mín</th>
-      <th>${printMinCandy}</th>
-      <th>${printMinSpawnChance} %</th>
-      <th>${printMinSpawnTimeMin}:${printMinSpawnTimeSec}</th>
+      <th>${minimumCandy()}</th>
+      <th>${minimumSpawnChance()} %</th>
+      <th>${minimumSpawnTime()}</th>
+      
     </tr>
     <tr>
       <th>Média</th>
-      <th id="med-candy">${printMedCandy}</th>
-      <th id="med-spawn-chance">${printMedSpawnChance} %</th>
-      <th id="med-spawn-time">${printMedSpawnTimeMin}:${printMedSpawnTimeSec}</th>
+      <th>${averageCandy()}</th>
+      <th>${averageSpawnChance()} %</th>
+      <th>${averageSpawnTime()}</th>
     </tr>
     <tr>
       <th>Máx</th>
-      <th>${printMaxCandy}</th>
-      <th>${printMaxSpawnChance} %</th>
-      <th>${printMaxSpawnTimeMin}:${printMaxSpawnTimeSec}</th>
+      <th>${maximumCandy()}</th>
+      <th>${maximumSpawnChance()} %</th>
+      <th>${maximumSpawnTime()}</th>
     </tr>`
 }
 
-function ordering() {
-  let sortOption = sort.value;
-  let ordered = filtrando().sort(function (a, b) {
+// Gráfico
 
-    if (a[sortOption] < b[sortOption]) {
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Year', 'Candy'],
+    ['Min', minimumCandy()],
+    ['Med', averageCandy()],
+    ['Max', maximumCandy()]
+  ]);
+
+  var options = {
+    title: 'Candy to Evolve',
+    hAxis: { title: '', titleTextStyle: { color: 'red' } },
+    vAxis: { minValue: 0 }
+  };
+
+  var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+}
+
+//  fim gráfico
+
+function sort() {
+  let sortMenuValue = sortMenu.value;
+  let orderedPokemons = filter().sort(function (a, b) {
+
+    if (a[sortMenuValue] < b[sortMenuValue]) {
       return -1;
     }
-    if (a[sortOption] > b[sortOption]) {
+    if (a[sortMenuValue] > b[sortMenuValue]) {
       return 1;
     }
-    if (!a[sortOption]) {
+    if (!a[sortMenuValue]) {
       return 1;
     }
-    if (!b[sortOption]) {
+    if (!b[sortMenuValue]) {
       return -1;
     }
     return 0;
   })
 
-  return ordered
+  return orderedPokemons
 }
 
 function showPokemons() {
   let pokemonDiv = document.getElementById("pokemons-container")
   pokemonDiv.innerHTML = `
-    ${ordering().map((pokemon) => `
+    ${sort().map((pokemon) => `
     <div class="pokemons-card">
         <p class="card-img"><img src="${pokemon["img"]}"</p>
         <h2 class="card-name">${pokemon["name"]}</h3>
@@ -244,5 +321,6 @@ function showPokemons() {
       `
 }
 
+// })
 
 
