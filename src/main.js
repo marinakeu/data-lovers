@@ -249,20 +249,20 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  var data = google.visualization.arrayToDataTable([
+  let data = google.visualization.arrayToDataTable([
     ['Year', 'Candy'],
     ['Min', minimumCandy()],
     ['Med', averageCandy()],
     ['Max', maximumCandy()]
   ]);
 
-  var options = {
+  let options = {
     title: 'Candy to Evolve',
     hAxis: { title: '', titleTextStyle: { color: 'red' } },
     vAxis: { minValue: 0 }
   };
 
-  var chart = new google.visualization.AreaChart(document.getElementById('chart-div'));
+  let chart = new google.visualization.AreaChart(document.getElementById('chart-div'));
   chart.draw(data, options);
 }
 
