@@ -46,7 +46,6 @@ function filter() {
   let chooseMenuValue = chooseMenu.value;
   // let filteredPokemons = data["pokemon"];
   let filteredPokemons = POKEMON["pokemon"];
-
   if (filterMenuValue === 'type' && chooseMenuValue != 'none') {
     filteredPokemons = getPokemons().filter(tipo => tipo['type'].indexOf(chooseMenuValue) >= 0);
   } else if (filterMenuValue === 'weakness' && chooseMenuValue != 'none') {
@@ -54,7 +53,6 @@ function filter() {
   } else if (filterMenuValue != 'none' && chooseMenuValue === 'none') {
     filteredPokemons = POKEMON["pokemon"];
   }
-
   return filteredPokemons
 }
 
@@ -202,7 +200,6 @@ function maximumSpawnTime() {
     } else {
       maxSpawnTimeMinutes = maxSpawnTimeMin;
     }
-
     maxSpawnTimeSec = maxSpawnTime - maxSpawnTimeMin * 60;
     if (maxSpawnTimeSec < 10) {
       maxSpawnTimeSeconds = '0' + maxSpawnTimeSec;
@@ -219,30 +216,29 @@ function printTable() {
   let calcTable = document.getElementById("calc-table");
   calcTable.innerHTML = `
   <tr>
-      <th></th>
-      <th>Candy</th>
-      <th>Spawn Chance</th>
-      <th>Spawn Time</th>
-    </tr>
-    <tr>
-      <th>Mín</th>
-      <th>${minimumCandy()}</th>
-      <th>${minimumSpawnChance()} %</th>
-      <th>${minimumSpawnTime()}</th>
-      
-    </tr>
-    <tr>
-      <th>Média</th>
-      <th>${averageCandy()}</th>
-      <th>${averageSpawnChance()} %</th>
-      <th>${averageSpawnTime()}</th>
-    </tr>
-    <tr>
-      <th>Máx</th>
-      <th>${maximumCandy()}</th>
-      <th>${maximumSpawnChance()} %</th>
-      <th>${maximumSpawnTime()}</th>
-    </tr>`
+    <th></th>
+    <th>Candy</th>
+    <th>Spawn Chance</th>
+    <th>Spawn Time</th>
+  </tr>
+  <tr>
+    <th>Mín</th>
+    <th>${minimumCandy()}</th>
+    <th>${minimumSpawnChance()} %</th>
+    <th>${minimumSpawnTime()}</th>
+  </tr>
+  <tr>
+    <th>Média</th>
+    <th>${averageCandy()}</th>
+    <th>${averageSpawnChance()} %</th>
+    <th>${averageSpawnTime()}</th>
+  </tr>
+  <tr>
+    <th>Máx</th>
+    <th>${maximumCandy()}</th>
+    <th>${maximumSpawnChance()} %</th>
+    <th>${maximumSpawnTime()}</th>
+  </tr>`
 }
 
 google.charts.load('current', { 'packages': ['corechart'] });
@@ -250,18 +246,18 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
   let data = google.visualization.arrayToDataTable([
-    ['Year', 'Candy'],
-    ['Min', minimumCandy()],
-    ['Med', averageCandy()],
-    ['Max', maximumCandy()]
+    ['Year', ''],
+    ['Mínimo', minimumCandy()],
+    ['Médio', averageCandy()],
+    ['Máximo', maximumCandy()]
   ]);
-
   let options = {
     title: 'Candy to Evolve',
-    hAxis: { title: '', titleTextStyle: { color: 'red' } },
-    vAxis: { minValue: 0 }
+    hAxis: { titleTextStyle: { color: 'red' } },
+    vAxis: { minValue: 0 },
+    backgroundColor: '#D4D4D4',
+    colors: ['#171c3c']
   };
-
   let chart = new google.visualization.AreaChart(document.getElementById('chart-div'));
   chart.draw(data, options);
 }
@@ -269,12 +265,10 @@ function drawChart() {
 function sort() {
   let sortMenuValue = sortMenu.value;
   let sortValue = sortMenuValue;
-
   if (sortMenuValue === 'none') {
     sortValue = 'num';
   }
   let orderedPokemons = filter().sort(function (a, b) {
-
     if (a[sortValue] < b[sortValue]) {
       return -1;
     }
@@ -289,7 +283,6 @@ function sort() {
     }
     return 0;
   })
-
   return orderedPokemons
 }
 
@@ -298,9 +291,9 @@ function showPokemons() {
   pokemonDiv.innerHTML = `
     ${sort().map((pokemon) => `
     <div class="pokemons-card">
-        <p class="card-img"><img src="${pokemon["img"]}"</p>
-        <h2 class="card-name">${pokemon["name"]}</h3>
-        <p class="card-num">${pokemon["num"]}</p>
+      <p class="card-img"><img src="${pokemon["img"]}"</p>
+      <h2 class="card-name">${pokemon["name"]}</h3>
+      <p class="card-num">${pokemon["num"]}</p>
       <div class="card-type">${pokemon["type"].map((type) => `
         <p>${type}</p>`).join('')}
       </div>
@@ -316,9 +309,8 @@ function showPokemons() {
         </div>
       </div>
     </div >
-      
-      `).join('')}
-      `
+    `).join('')}
+    `
 }
 
 // })
