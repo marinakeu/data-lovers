@@ -1,205 +1,205 @@
-*{
-    font-family: 'Alegreya', serif;
-    margin: 0;
-    padding: 0;
-    border: none;
-    outline:none;
+* {
+  font-family: 'Alegreya', serif;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline:none;
 }
 
-body{
-    background-color: #f7f7f7;
+body {
+  background-color: #f7f7f7;
 }
 
-header{
-    background-color: #171c3c;
-    display: flex;
-    justify-content: center;
-    width: 100%;
+header {
+  background-color: #171c3c;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.logo-container{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.pokemon-logo{
-    max-width: 50%;
-    width: 48%;
-    height: auto;
-    margin-left: 7%;
-    margin-top: 3%;
-    margin-right: 7%;
+.pokemon-logo {
+  max-width: 50%;
+  width: 48%;
+  height: auto;
+  margin-left: 7%;
+  margin-top: 3%;
+  margin-right: 7%;
 }
 
 .guide,
 .explore,
-footer{
-    color: #F7F7F7;
+footer {
+  color: #F7F7F7;
 }
 
-.explore{
-    height: auto;
-    text-align: center;
-    margin-top: 11%;
-    margin-bottom: 5%;
+.explore {
+  height: auto;
+  text-align: center;
+  margin-top: 11%;
+  margin-bottom: 5%;
 }
 
-nav{
-    text-align: center;
-    display: flex;
-    justify-content: center;
+nav {
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-.btn{
-    padding: 8px 18px;
-    border-radius: 10px;
-    font: normal normal bold 20px arial;    
-    margin-right: 1%;
-    margin-top: 1%;
-    margin-left: 1%;
-    margin-bottom: 1%;    
-    border: none;
+.btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  font: normal normal bold 20px arial;
+  margin-right: 1%;
+  margin-top: 1%;
+  margin-left: 1%;
+  margin-bottom: 1%;
+  border: none;
 }
 
-.blue{
-    background: #5C9BC3;
+.blue {
+  background: #5C9BC3;
 }
 
-.blue:hover{
-    background: linear-gradient(to bottom, #5C9BC3, #406D89);
+.blue:hover {
+  background: linear-gradient(to bottom, #5C9BC3, #406D89);
 }
 
-.yellow{
-    background: #FFCB05;
+.yellow {
+  background: #FFCB05;
 }
 
-.yellow:hover{
-    background: linear-gradient(to bottom, #FFCB05, #B28F03);
+.yellow:hover {
+  background: linear-gradient(to bottom, #FFCB05, #B28F03);
 }
 
-#choose-menu{
-    visibility: hidden;   
+#choose-menu {
+  visibility: hidden;
 }
 
-#choose-weakness{
-    visibility: hidden;
+#choose-weakness {
+  visibility: hidden;
 }
 
-.table{
-    background-color: #D4D4D4;
-    width: 50%;
-    margin: 1rem 20rem;
-    border-radius: 3%;
-    color: #171C3C;
-    padding: 2rem 1rem 3rem;
+.table {
+  background-color: #D4D4D4;
+  width: 50%;
+  margin: 1rem 20rem;
+  border-radius: 3%;
+  color: #171C3C;
+  padding: 2rem 1rem 3rem;
 }
 
-.table-title{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0rem 5rem;
+.table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0rem 5rem;
 }
 
-.table-title h3{
-    font-weight: 900;
-    font-size: 1.5rem;
+.table-title h3 {
+  font-weight: 900;
+  font-size: 1.5rem;
 }
 
-.calc-table{
-    font-size: 1.2rem;
-    font-weight: bold;  
-    margin-left:auto; 
-    margin-right:auto;  
+.calc-table {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-.calc-table th{
-    padding: 0.3rem 1rem;
+.calc-table th {
+  padding: 0.3rem 1rem;
 }
 
-#chart-div{
-    display: flex !important;
-    justify-content: center;
-    width: auto !important; 
-    height: auto !important;
+#chart-div {
+  display: flex !important;
+  justify-content: center;
+  width: auto !important;
+  height: auto !important;
 }
 
-.pokemons-container{
-    width: 80%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 1rem 8rem;
+.pokemons-container {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 8rem;
 }
 
-.pokemons-card{
-    background-color: #D4D4D4;
-    margin: 0.3rem;
-    width: 16%;
-    padding: 1rem;
-    border-radius: 3%;
-    font-weight: bold;
-    margin: 0.5rem;
+.pokemons-card {
+  background-color: #D4D4D4;
+  margin: 0.3rem;
+  width: 16%;
+  padding: 1rem;
+  border-radius: 3%;
+  font-weight: bold;
+  margin: 0.5rem;
 }
 
-.card-img{
-    text-align: center;
-    padding: 0rem;
-    margin: 0.5rem 0rem 1rem;
+.card-img {
+  text-align: center;
+  padding: 0rem;
+  margin: 0.5rem 0rem 1rem;
 }
 
 .card-name,
-.card-num{
-    color: #171C3C;
-    margin: 0.1rem 0rem;
+.card-num {
+  color: #171C3C;
+  margin: 0.1rem 0rem;
 }
 
-.card-type{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0.3rem 0rem;    
+.card-type {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0.3rem 0rem;
 }
 
-.card-type p{
-    margin: 0.1rem 0.3rem 0.2rem 0rem;
-    background-color: #5C9BC3;
-    border-radius: 3%;
-    padding: 0.1rem;
-    font-size: 0.9rem;
-    width: 3rem;
-    text-align: center;
+.card-type p {
+  margin: 0.1rem 0.3rem 0.2rem 0rem;
+  background-color: #5C9BC3;
+  border-radius: 3%;
+  padding: 0.1rem;
+  font-size: 0.9rem;
+  width: 3rem;
+  text-align: center;
 }
 
 .card-candy,
 .card-spawn-chance,
-.card-spawn-time{
-    color: #2E3036;
-    margin: 0.05rem;
+.card-spawn-time {
+  color: #2E3036;
+  margin: 0.05rem;
 }
 
 .candy-value,
 .spawn-chance-value,
-.spawn-time-value{
-    font-size: 1.2rem;
-    font-weight: 900;
+.spawn-time-value {
+  font-size: 1.2rem;
+  font-weight: 900;
 }
 
-.card-spawn{
-    display: flex;
-    margin-top: 0.3rem;
+.card-spawn {
+  display: flex;
+  margin-top: 0.3rem;
 }
 
-.card-spawn p{
-    margin: 0rem;
-    line-height: 1.1rem;
-    width: 30%;
+.card-spawn p {
+  margin: 0rem;
+  line-height: 1.1rem;
+  width: 30%;
 }
 
-footer{
-    text-align: center;
-    background-color: #171C3C;
-    padding: 2rem;
-    margin-top: 4rem;
+footer {
+  text-align: center;
+  background-color: #171C3C;
+  padding: 2rem;
+  margin-top: 4rem;
 }
