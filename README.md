@@ -16,15 +16,15 @@
 
 5. Protótipos
 
-6. Definição interface do usuário
+6. Definição da interface do usuário
 
-7. Implementação interface de usuário
+7. Implementação da interface de usuário
 
   
 
 ### 1. O Projeto
 
-Projeto para a Laboratória - Brasil. O projeto consiste na criação de um API que possibilite o usuário a visualizar, filtrar, ordenar, e fazer cálculos com uma base de dados pré definida.
+Projeto para a Laboratória - Brasil. O projeto consiste na criação de uma aplicação que possibilite ao usuário visualizar, filtrar, ordenar, e fazer cálculos com uma base de dados pré-definida.
 
   
 
@@ -32,13 +32,13 @@ Projeto para a Laboratória - Brasil. O projeto consiste na criação de um API 
 
 #### Objetivos de aprendizagem
 
-Com este projeto, além de aplicar e aprofundar tudo o que aprendemos nos projetos anteriores, visamos alcançar os seguintes objetivos: 
+Com este projeto, além de aplicar e aprofundar o que foi aprendido nos projetos anteriores, visamos alcançar os seguintes objetivos: 
 
- - Pensar nas necessidades dos usuários para criar uma interface que faça sentido e com tarefas claras e um produto que siga os princípios básicos de usabilidade.
+ - Pensar nas necessidades dos usuários para criar uma interface alinhada com essas necessidades e um produto que siga os princípios básicos de usabilidade.
    
- -  Definir os dados e de que forma mostrá-los no produto.  
+ -  Definir os dados a serem utilizados e de que forma eles serão mostrados no produto.  
    
- - Trabalhar com suas definições de pronto (definition of done) na organização e planificação de seu trabalho.
+ - Trabalhar com definições de pronto (definition of done) na organização e planificação do trabalho.
 
 -  Manipular arrays e objetos.
    
@@ -69,7 +69,7 @@ UI: Permite filtrar os dados com base em uma condição.
 
 ### 3. Definição de produto
 
-O produto foi desenvolvido como ferramenta complementar para o jogador de Pokémon Go. No jogo, o usuário apenas consegue obter informações sobre os Pokémons caso os capture, assim, existe uma necessidade de conhecimento complementar para melhorar estratégias de jogo que não é atendida pela versão atual do Pokémon Go. O nosso aplicativo visa, de uma maneira prática, suprir essa demanda, fornecendo informações para o jogador iniciante e intermediário. Mostrando filtros por tipo e fraquezas e possibilitando ao jogador após filtrar, ordená-los por nome, candy, spawn-time e spawn chance.
+O produto foi desenvolvido como ferramenta complementar para o jogador de Pokémon Go. No jogo, o usuário apenas consegue obter informações sobre os Pokémons caso os capture, assim, existe uma necessidade de conhecimento complementar para melhorar estratégias de jogo que não é atendida pela versão atual do Pokémon Go. O nosso aplicativo visa, de uma maneira prática, suprir essa demanda, fornecendo informações para o jogador iniciante e intermediário. Mostrando Pokémons filtrados por tipo e fraquezas e possibilitando ao jogador ordená-los por nome, candy, spawn-time e spawn chance.
   
 
 ### 4. Definição do usuário
@@ -89,19 +89,6 @@ Onde mora: centros urbanos
 Classe social: média/alta
 
 Perfil de uso do jogo: iniciante a intermediário
-
-  
-
-- Objetivos dos usuários com relação ao produto:
-
-  
-
-- Dados mais importantes para verem na interface:
-
-  
-
-- Contexto de utilização do produto:
-
   
 
 #### As personas
