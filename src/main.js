@@ -246,15 +246,17 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
   let data = google.visualization.arrayToDataTable([
-    ['Year', 'Candy'],
-    ['Min', minimumCandy()],
-    ['Med', averageCandy()],
-    ['Max', maximumCandy()]
+    ['Year', ''],
+    ['Mínimo', minimumCandy()],
+    ['Médio', averageCandy()],
+    ['Máximo', maximumCandy()]
   ]);
   let options = {
     title: 'Candy to Evolve',
-    hAxis: { title: '', titleTextStyle: { color: 'red' } },
-    vAxis: { minValue: 0 }
+    hAxis: { titleTextStyle: { color: 'red' } },
+    vAxis: { minValue: 0 },
+    backgroundColor: '#D4D4D4',
+    colors: ['#171c3c']
   };
   let chart = new google.visualization.AreaChart(document.getElementById('chart-div'));
   chart.draw(data, options);
